@@ -2,7 +2,7 @@ import express from 'express'
 import { PORT } from './config.js'
 import { getTransactions } from './transactios.js'
 import { getCustomer } from './customer.js'
-import { addtoFaves } from './faves.js'
+import { addtoFaves, deleteFromFaves } from './faves.js'
 
 const app = express ()
 //middleware to parse JSON bodies in requests
@@ -30,11 +30,11 @@ app.post('/customers/add/:custID', (req, res) => {
     if (isNaN(cID)) 
         { res.status(400).json({ "error": "Customer ID must be a number" }) 
     return }
-    addtoFaves(req, parseInt(cID))
+    addtoFaves(res, parseInt(cID))
     
 })
 
 app.delete('/faves/remove', (req, res) => {
     const data = req.body
-    deleteFromFaves(req, res, data.custID)
-})
+    deleteFromFaves(res, data.custID)
+    })

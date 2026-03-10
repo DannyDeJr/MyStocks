@@ -3,14 +3,14 @@ import { FavesCollection } from "./myMongo.js"
 
 const addtoFaves = (res, custID) => {
     FavesCollection
-    .countDocuments({ custID: custID})
+    .countDocuments({ "custID": custID})
     .then(counted => {
         if (counted > 0) {
             res.status(200).json({message: `Customer ID: ${custID} is already added.` })
             return
         } 
         FavesCollection
-        .insertOne({ custID: custID })
+        .insertOne({ "custID": custID })
         .then(result => {
             if (result.insertedId) 
                 res.status(200).json({message: "Customer added to favourits." })
@@ -21,14 +21,14 @@ const addtoFaves = (res, custID) => {
 }
 const deleteFromFaves = (res, custID) => {
     FavesCollection
-    .countDocuments({ custID: custID})
+    .countDocuments({ "custID": custID})
     .then(counted => {
         if (counted === 0) {
-            res.status(200).json({message: `Customer ID: ${custID} does'nt exist.` })
+            res.status(200).json({message: `Customer ID: ${custID} doesn't exist.` })
             return
         }
         FavesCollection
-        .deleteOne({ custID: custID })
+        .deleteOne({ "custID": custID })
         .then(result => {
             if (result.acknowledged) 
                 res.status(200).json({message: "Deleted successfully." })
